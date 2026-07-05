@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="insta-card">
+            <div class="insta-card-header">
+                <a href="{% url 'accounts:profile' post.author.pk %}">
+                    {% if post.author.profile.avatar %}
+                        <img src="{{ post.author.profile.avatar.url }}" class="avatar-sm" alt="avatar">
+                    {% endif %}
+                </a>
+                <a href="{% url 'accounts:profile' post.author.pk %}" class="username-link">
+                    {{ post.author.username }}
+                </a>
+                {% if request.user == post.author %}
+                    <a href="{% url 'posts:post_delete' post.pk %}" class="btn-insta-danger ms-auto">Удалить</a>
+                {% endif %}
+            </div>
+            <img src="{{ post.image.url }}" class="post-image" alt="post">
+            <div class="p-3">
+                <div class="d-flex align-items-center gap-3 mb-2">
+                    <form method="POST" action="{% url 'posts:like' post.pk %}">
+                        {% csrf_token %}
+                        <button class="like-btn {% if is_liked %}liked{% endif %}">
+                            {% if is_liked %}❤️{% else %}🤍{% endif %}
+                        </button>
+                    </form>
+                </div>
+                <div class="likes-count mb-2">{{ post.likes_count }} отметок «Нравится»</div>
+                {% if post.caption %}
+                    <p class="comment-text mb-2">
+                        <a href="{% url 'accounts:profile' post.author.pk %}" class="username-link">{{ post.author.username }}</a>
+                        {{ post.caption }}
+                    </p>
+                {% endif %}
+                <div class="time-meta mb-3">{{ post.created_at|date:'d.m.Y H:i' }}</div>
+                <hr>
+                {% for comment in comments %}
+                <div class="d-flex gap-2 mb-2">
+                    <a href="{% url 'accounts:profile' comment.author.pk %}">
+                        {% if comment.author.profile.avatar %}
+                            <img src="{{ comment.author.profile.avatar.url }}" class="avatar-sm" alt="avatar">
+                        {% endif %}
+                    </a>
+                    <div>
+                        <a href="{% url 'accounts:profile' comment.author.pk %}" class="username-link">{{ comment.author.username }}</a>
+                        <span class="comment-text ms-1">{{ comment.text }}</span>
+                        <div class="time-meta">{{ comment.created_at|date:'d.m.Y H:i' }}</div>
+                    </div>
+                </div>
+                {% endfor %}
+                <hr>
+                {% if request.user.is_authenticated %}
+                <form method="POST" action="{% url 'posts:comment_create' post.pk %}">
+                    {% csrf_token %}
+                    <div class="d-flex gap-2">
+                        {{ comment_form.text }}
+                        <button type="submit" class="btn-insta">Отправить</button>
+                    </div>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
