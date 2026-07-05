@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="d-flex align-items-center gap-5 mb-5">
+            {% if profile_user.profile.avatar %}
+                <img src="{{ profile_user.profile.avatar.url }}" class="avatar-lg" alt="avatar">
+            {% else %}
+                <div class="avatar-lg bg-secondary d-flex align-items-center justify-content-center">
+                    <span class="text-white fs-3">{{ profile_user.username|first|upper }}</span>
+                </div>
+            {% endif %}
+            <div>
+                <div class="d-flex align-items-center gap-3 mb-3">
+                    <h4 class="mb-0">{{ profile_user.username }}</h4>
+                    {% if request.user == profile_user %}
+                        <a href="{% url 'accounts:profile_edit' %}" class="btn-insta-outline">Редактировать</a>
+                    {% else %}
+                        <form method="POST" action="{% url 'accounts:follow' profile_user.pk %}">
+                            {% csrf_token %}
+                            <button type="submit" class="{% if is_following %}btn-insta-outline{% else %}btn-insta{% endif %}">
+                                {% if is_following %}Отписаться{% else %}Подписаться{% endif %}
+                            </button>
+                        </form>
+                    {% endif %}
+                </div>
+                <div class="profile-stats mb-3">
+                    <div class="profile-stat">
+                        <span class="profile-stat-count">{{ profile_user.profile.posts_count }}</span>
+                        <span class="profile-stat-label">публикаций</span>
+                    </div>
+                    <div class="profile-stat">
+                        <span class="profile-stat-count">{{ profile_user.profile.followers_count }}</span>
+                        <span class="profile-stat-label">подписчиков</span>
+                    </div>
+                    <div class="profile-stat">
+                        <span class="profile-stat-count">{{ profile_user.profile.following_count }}</span>
+                        <span class="profile-stat-label">подписок</span>
+                    </div>
+                </div>
+                {% if profile_user.get_full_name %}
+                    <p class="fw-bold mb-1">{{ profile_user.get_full_name }}</p>
+                {% endif %}
+                {% if profile_user.profile.bio %}
+                    <p class="mb-0">{{ profile_user.profile.bio }}</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="post-grid">
+            {% for post in posts %}
+            <div class="post-grid-item">
+                <a href="{% url 'posts:post_detail' post.pk %}">
+                    <img src="{{ post.image.url }}" alt="post">
+                </a>
+            </div>
+            {% empty %}
+            <p class="text-muted">Публикаций пока нет</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
