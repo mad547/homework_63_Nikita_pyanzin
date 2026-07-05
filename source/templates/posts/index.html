@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        {% for post in posts %}
+        <div class="insta-card">
+            <div class="insta-card-header">
+                <a href="{% url 'accounts:profile' post.author.pk %}">
+                    {% if post.author.profile.avatar %}
+                        <img src="{{ post.author.profile.avatar.url }}" class="avatar-sm" alt="avatar">
+                    {% endif %}
+                </a>
+                <a href="{% url 'accounts:profile' post.author.pk %}" class="username-link">
+                    {{ post.author.username }}
+                </a>
+                <span class="time-meta ms-auto">{{ post.created_at|date:'d.m.Y H:i' }}</span>
+            </div>
+            <a href="{% url 'posts:post_detail' post.pk %}">
+                <img src="{{ post.image.url }}" class="post-image" alt="post">
+            </a>
+            <div class="p-3">
+                <div class="d-flex align-items-center gap-3 mb-2">
+                    <form method="POST" action="{% url 'posts:like' post.pk %}">
+                        {% csrf_token %}
+                        <button class="like-btn {% if post.pk in liked_posts %}liked{% endif %}">
+                            {% if post.pk in liked_posts %}❤️{% else %}🤍{% endif %}
+                        </button>
+                    </form>
+                    <a href="{% url 'posts:post_detail' post.pk %}">💬</a>
+                </div>
+                <div class="likes-count mb-1">{{ post.likes_count }} отметок «Нравится»</div>
+                {% if post.caption %}
+                    <p class="comment-text mb-1">
+                        <a href="{% url 'accounts:profile' post.author.pk %}" class="username-link">{{ post.author.username }}</a>
+                        {{ post.caption }}
+                    </p>
+                {% endif %}
+                <a href="{% url 'posts:post_detail' post.pk %}" class="time-meta">
+                    Посмотреть все комментарии ({{ post.comments_count }})
+                </a>
+            </div>
+        </div>
+        {% empty %}
+        <div class="text-center text-muted py-5">
+            <p class="fs-5">Подпишитесь на пользователей чтобы видеть их публикации</p>
+            <a href="{% url 'accounts:search' %}" class="btn-insta">Найти людей</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
