@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+<div class="insta-card form-card-insta-lg my-4">
+    <div class="p-4">
+        <h4 class="text-center fw-bold mb-4">Новая публикация</h4>
+        <form method="POST" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% bootstrap_form form layout="floating" %}
+            <div class="d-flex justify-content-between mt-3">
+                <a href="{% url 'posts:index' %}" class="btn-insta-outline">Отмена</a>
+                <button type="submit" class="btn-insta">Опубликовать</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
