@@ -1,5 +1,5 @@
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.contrib.auth.forms import UserCreationForm
 from django import forms
 
 from accounts.models import Profile
@@ -9,17 +9,17 @@ class RegisterForm(UserCreationForm):
     email = forms.EmailField(
         required=True,
         label='Email',
-        widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email'}),
+        widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email'})
     )
     password1 = forms.CharField(
         label='Пароль',
         strip=False,
-        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Пароль'}),
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Пароль'})
     )
     password2 = forms.CharField(
-        label='Подвердите пароль',
+        label='Подтвердите пароль',
         strip=False,
-        widget=forms.PasswordInput(attrs={'class': "form-control", 'placeholder': 'Подтвердите пароль'}),
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Подтвердите пароль'})
     )
 
     class Meta(UserCreationForm.Meta):
@@ -29,27 +29,20 @@ class RegisterForm(UserCreationForm):
             'username': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Логин'}),
         }
 
-    def clean(self):
-        cleaned_data = super().clean()
-        email = cleaned_data.get('email')
-        if get_user_model().objects.filter(email=email).exists():
-            raise forms.ValidationError('Пользователь с таким Email уже существует')
-        return cleaned_data
-
 
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['first_name', 'last_name', 'email']
+        fields = ['avatar', 'bio', 'phone', 'gender']
         widgets = {
-            'bio': forms.Textarea(attrs={'class': 'form-control', 'rows': '3', 'placeholder': 'О себе'}),
+            'bio': forms.Textarea(attrs={'class': 'form-control', 'rows': 3, 'placeholder': 'О себе'}),
             'phone': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Телефон'}),
-            'gender': forms.Select(attrs={'class': 'form-control'})
+            'gender': forms.Select(attrs={'class': 'form-control'}),
         }
 
 
 class ProfileEditForm(forms.ModelForm):
-    class Meta(UserChangeForm):
+    class Meta:
         model = get_user_model()
         fields = ['first_name', 'last_name', 'email']
         widgets = {
@@ -62,7 +55,7 @@ class ProfileEditForm(forms.ModelForm):
 class LoginForm(forms.Form):
     username_or_email = forms.CharField(
         label='Логин или Email',
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Логин или Email'}),
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Логин или Email'})
     )
     password = forms.CharField(
         label='Пароль',
