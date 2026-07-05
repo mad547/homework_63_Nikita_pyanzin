@@ -1,0 +1,92 @@
+[
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$gxdBNT9uj0fiy5xdDLS4nb$6XptovwyU/6FWEFqwHhq2viJnB6+jTP72X50e7O0dnA=",
+    "last_login": null,
+    "is_superuser": true,
+    "username": "stiv",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-07-05T15:23:18.648Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$k3zcTZ94YpTdkVRHcTAgfN$hSkmrJV4YXVpdj2CzZdzEPBd9cEW+tN922z6J+9oA6w=",
+    "last_login": "2026-07-05T15:29:13.113Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-07-05T15:23:46.950Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$vYvhfpXcz98AbPeHQAAFk3$KZv+Vh4h0J33vKWK6PbQjG0WFy8XdgqDU/JTqAZ3XIk=",
+    "last_login": "2026-07-05T15:43:52.026Z",
+    "is_superuser": false,
+    "username": "stiv547",
+    "first_name": "",
+    "last_name": "",
+    "email": "qwerty@mail.ru",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-07-05T15:43:51.727Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 4,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$a7ZWCSVWRWrSdxUOzji8ro$dziCJVHcMZuxWMrO33VFm+gHfmmjqml0B4VvC0brbdw=",
+    "last_login": "2026-07-05T15:51:51.915Z",
+    "is_superuser": false,
+    "username": "jacksmith",
+    "first_name": "",
+    "last_name": "",
+    "email": "jacksmith@mail.ru",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-07-05T15:45:38.329Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 5,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$3yVIEBENln7HYHucOur0eq$iRePIIX4RBppOCZ2wu7hyPCEomxqH0yQser2evvDiAs=",
+    "last_login": "2026-07-05T15:49:56.839Z",
+    "is_superuser": false,
+    "username": "сименс",
+    "first_name": "",
+    "last_name": "",
+    "email": "zerg@mail.ru",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-07-05T15:49:56.540Z",
+    "groups": [],
+    "user_permissions": []
+  }
+}
+]
