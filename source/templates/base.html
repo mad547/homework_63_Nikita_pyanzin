@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Instagram</title>
+</head>
+<body>
+<nav class="navbar navbar-insta navbar-dark mb-4 py-2">
+    <div class="container">
+        <a class="navbar-brand fw-bold fs-4" href="{% url 'posts:index' %}">📸 Instagram</a>
+        <div class="d-flex align-items-center gap-3">
+            {% if request.user.is_authenticated %}
+                <a href="{% url 'accounts:search' %}" class="btn-insta-outline text-white border-white">🔍 Поиск</a>
+                <a href="{% url 'posts:post_create' %}" class="btn-insta">+ Публикация</a>
+                <a href="{% url 'accounts:profile' request.user.pk %}">
+                    {% if request.user.profile.avatar %}
+                        <img src="{{ request.user.profile.avatar.url }}" class="avatar-sm" alt="avatar">
+                    {% else %}
+                        <span class="text-white fw-bold">{{ request.user.username }}</span>
+                    {% endif %}
+                </a>
+                <form method="POST" action="{% url 'accounts:logout' %}" class="d-inline">
+                    {% csrf_token %}
+                    <button type="submit" class="btn-insta-danger">Выйти</button>
+                </form>
+            {% else %}
+                <a href="{% url 'accounts:login' %}" class="btn-insta">Войти</a>
+                <a href="{% url 'accounts:register' %}" class="btn-insta-outline text-white border-white">Регистрация</a>
+            {% endif %}
+        </div>
+    </div>
+</nav>
+<div class="container pb-5">
+    {% block content %}
+    {% endblock %}
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
