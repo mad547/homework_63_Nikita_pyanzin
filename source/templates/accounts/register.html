@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+<div class="insta-card form-card-insta-lg my-5">
+    <div class="p-4">
+        <h4 class="text-center fw-bold mb-4">Регистрация</h4>
+        <form method="POST" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% bootstrap_form form layout="floating" %}
+            <hr>
+            <p class="text-muted small">Профиль</p>
+            {% bootstrap_form profile_form layout="floating" %}
+            <button type="submit" class="btn-insta w-100 mt-3">Зарегистрироваться</button>
+        </form>
+    </div>
+    <div class="insta-card-footer text-center">
+        Уже есть аккаунт? <a href="{% url 'accounts:login' %}" class="fw-bold text-decoration-none" style="color:#262626;">Войти</a>
+    </div>
+</div>
+{% endblock %}
