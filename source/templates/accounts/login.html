@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+<div class="insta-card form-card-insta my-5">
+    <div class="p-4 text-center">
+        <h2 class="fw-bold mb-4" style="font-family: 'Segoe UI', sans-serif;">Instagram</h2>
+        <form method="POST" action="">
+            {% csrf_token %}
+            {% bootstrap_form form layout="floating" %}
+            <button type="submit" class="btn-insta w-100 mt-3">Войти</button>
+        </form>
+    </div>
+    <div class="insta-card-footer text-center">
+        Нет аккаунта? <a href="{% url 'accounts:register' %}" class="fw-bold text-decoration-none" style="color:#262626;">Зарегистрироваться</a>
+    </div>
+</div>
+{% endblock %}
