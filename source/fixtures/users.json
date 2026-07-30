@@ -88,5 +88,41 @@
     "groups": [],
     "user_permissions": []
   }
+},
+{
+  "model": "auth.user",
+  "pk": 6,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$fdHB4LepqkLPXjEvRabJV4$lldiyeDkoGDwMT75R6MRITXZT9gsg4kbFD6eGSv3qYs=",
+    "last_login": "2026-07-30T12:20:34.625Z",
+    "is_superuser": false,
+    "username": "user",
+    "first_name": "",
+    "last_name": "",
+    "email": "user@mail.ru",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-07-30T12:20:11.778Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 7,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$fTHIjxFpvu05kfLwwauT97$UnyJwgY8TPiqAdTYLYuwtofdv0yq0rZ0VdE/Fkhjm74=",
+    "last_login": "2026-07-30T12:22:51.351Z",
+    "is_superuser": false,
+    "username": "stiven",
+    "first_name": "",
+    "last_name": "",
+    "email": "stiven@mail.ru",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-07-30T12:22:51.051Z",
+    "groups": [],
+    "user_permissions": []
+  }
 }
 ]
