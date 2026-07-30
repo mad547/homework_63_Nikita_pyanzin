@@ -22,7 +22,7 @@
                 <div class="d-flex align-items-center gap-3 mb-2">
                     {% if request.user.is_authenticated %}
                         <button class="like-btn" data-post-id="{{ post.pk }}">
-                            {% if is_liked %}❤️{% else %}🤍{% endif %}
+                            <span class="like-icon">{% if is_liked %}❤️{% else %}🤍{% endif %}</span>
                         </button>
                     {% else %}
                         <span>🤍</span>

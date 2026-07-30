@@ -14,33 +14,34 @@ function getCookie(name) {
 }
 
 function getToken() {
-    return getCookie('apiToken');
+    return getCookie('api_token');
 }
 
-document.addEventListener('DOMContentLoaded',  () => {
+document.addEventListener('DOMContentLoaded', () => {
     const likeButtons = document.querySelectorAll('.like-btn');
 
-    likeButtons.forEach(likeButton => {
+    likeButtons.forEach(btn => {
         btn.addEventListener('click', () => {
             const postId = btn.dataset.postId;
-            const countSpan = btn.querySelector('.likes-count');
             const icon = btn.querySelector('.like-icon');
+            const countEl = btn.closest('.p-3').querySelector('.likes-count');
             const token = getToken();
 
             if (!token) {
-                window.location.href = 'accounts/login/';
+                window.location.href = '/accounts/login/';
+                return;
             }
 
             fetch(`/api/posts/${postId}/like/`, {
                 method: 'POST',
                 headers: {
-                    'autorization': `Token ${token}`,
-                    'content-type': 'application/json',
+                    'Authorization': `Token ${token}`,
+                    'Content-Type': 'application/json',
                 }
             })
             .then(response => response.json())
             .then(data => {
-                countSpan.textContent = data.likes_count;
+                countEl.textContent = `${data.likes_count} отметок «Нравится»`;
                 if (data.liked) {
                     icon.textContent = '❤️';
                 } else {
