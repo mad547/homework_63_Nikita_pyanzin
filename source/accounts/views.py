@@ -8,14 +8,14 @@ from django.views.generic import CreateView, DetailView, UpdateView, ListView
 
 from accounts.forms import RegisterForm, ProfileForm, ProfileEditForm, LoginForm
 from accounts.models import Profile, Follow
+from rest_framework.authtoken.models import Token
 
 
 class CustomLoginView(LoginView):
     template_name = 'accounts/login.html'
-    form_class = LoginForm
 
     def form_valid(self, form):
-        username_or_email = form.cleaned_data.get('username_or_email')
+        username_or_email = form.cleaned_data.get('username')
         password = form.cleaned_data.get('password')
         user = authenticate(self.request, username=username_or_email, password=password)
         if user is None:
@@ -26,7 +26,10 @@ class CustomLoginView(LoginView):
                 pass
         if user is not None:
             login(self.request, user)
-            return redirect('posts:index')
+            token, created = Token.objects.get_or_create(user=user)
+            response = redirect('posts:index')
+            response.set_cookie('api_token', token.key)
+            return response
         form.add_error(None, 'Неверный логин/email или пароль')
         return self.form_invalid(form)
 

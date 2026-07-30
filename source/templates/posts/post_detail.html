@@ -20,12 +20,13 @@
             <img src="{{ post.image.url }}" class="post-image" alt="post">
             <div class="p-3">
                 <div class="d-flex align-items-center gap-3 mb-2">
-                    <form method="POST" action="{% url 'posts:like' post.pk %}">
-                        {% csrf_token %}
-                        <button class="like-btn {% if is_liked %}liked{% endif %}">
+                    {% if request.user.is_authenticated %}
+                        <button class="like-btn" data-post-id="{{ post.pk }}">
                             {% if is_liked %}❤️{% else %}🤍{% endif %}
                         </button>
-                    </form>
+                    {% else %}
+                        <span>🤍</span>
+                    {% endif %}
                 </div>
                 <div class="likes-count mb-2">{{ post.likes_count }} отметок «Нравится»</div>
                 {% if post.caption %}

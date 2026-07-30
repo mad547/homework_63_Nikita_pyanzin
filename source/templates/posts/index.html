@@ -21,12 +21,13 @@
             </a>
             <div class="p-3">
                 <div class="d-flex align-items-center gap-3 mb-2">
-                    <form method="POST" action="{% url 'posts:like' post.pk %}">
-                        {% csrf_token %}
-                        <button class="like-btn {% if post.pk in liked_posts %}liked{% endif %}">
+                    {% if request.user.is_authenticated %}
+                        <button class="like-btn" data-post-id="{{ post.pk }}">
                             {% if post.pk in liked_posts %}❤️{% else %}🤍{% endif %}
                         </button>
-                    </form>
+                    {% else %}
+                        <span>🤍</span>
+                    {% endif %}
                     <a href="{% url 'posts:post_detail' post.pk %}">💬</a>
                 </div>
                 <div class="likes-count mb-1">{{ post.likes_count }} отметок «Нравится»</div>
